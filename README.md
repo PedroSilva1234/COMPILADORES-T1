@@ -1,4 +1,5 @@
-Pedro Paulo de Oliveira Andrade: 202419040144
+Pedro Paulo de Oliveira Andrade: 202419040144.
+
 Pedro e Silva Candia: 202319050687
 
 uso_ia: sim

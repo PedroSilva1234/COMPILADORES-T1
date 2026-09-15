@@ -1,0 +1,9 @@
+===============================================================
+ Compiladores I - FACOM
+ Trabalho Pratico 1 - Analise Lexica para a linguagem Micro C
+===============================================================
+
+Pedro e Silva Candia: <202319050687>
+Pedro Paulo de Oliveira Andrade: <202419040144>
+
+Link do git: https://github.com/PedroSilva1234/COMPILADORES-T1

@@ -1,0 +1,6 @@
+--- testes/programas/expr/rejeitado_3.esperado	2026-10-19 18:55:24.000000000 -0400
++++ build/testes/expr-rejeitado_3.txt.saida	2026-11-10 17:45:45.982202317 -0400
+@@ -1,2 +1,2 @@
+-linha 1, coluna 5: erro lexico: caractere invalido '@'
++linha 1, coluna 1: erro lexico: caractere invalido '3'
+ status 1

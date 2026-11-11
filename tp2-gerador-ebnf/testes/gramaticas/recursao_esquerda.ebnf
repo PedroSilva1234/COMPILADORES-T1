@@ -1,0 +1,13 @@
+(* Deve ser RECUSADA: expr e term tem recursao a esquerda direta;
+   lista tem recursao a esquerda indireta, via item, atraves do
+   prefixo anulavel [ "," ] *)
+TOKENS
+  NUM  = /[0-9]+/ ;
+  SKIP = /[ \t\r\n]+/ ;
+
+RULES
+  inicio = expr lista ;
+  expr   = expr "+" term | term ;
+  term   = term "*" NUM | NUM ;
+  lista  = item ";" ;
+  item   = [ "," ] lista | NUM ;

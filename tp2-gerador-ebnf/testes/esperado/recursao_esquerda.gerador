@@ -1,0 +1,5 @@
+testes/gramaticas/recursao_esquerda.ebnf:10: erro: nao terminal expr tem recursao a esquerda direta
+testes/gramaticas/recursao_esquerda.ebnf:12: erro: nao terminal lista tem recursao a esquerda indireta
+testes/gramaticas/recursao_esquerda.ebnf:11: erro: nao terminal term tem recursao a esquerda direta
+testes/gramaticas/recursao_esquerda.ebnf:13: erro: nao terminal item tem recursao a esquerda indireta
+status 1

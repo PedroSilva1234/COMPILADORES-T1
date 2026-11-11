@@ -1,0 +1,9 @@
+(* Deve ser RECUSADA: as alternativas de stmt comecam com ID *)
+TOKENS
+  ID   = /[a-z]+/ ;
+  NUM  = /[0-9]+/ ;
+  SKIP = /[ \t\r\n]+/ ;
+
+RULES
+  stmt = ID "=" expr ";" | ID "(" ")" ";" ;
+  expr = ID | NUM ;

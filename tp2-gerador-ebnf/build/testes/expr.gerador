@@ -1,0 +1,8 @@
+NAO TERMINAL  ANULAVEL  FIRST / FOLLOW
+expr          nao       FIRST  = {NUM, ID, '('}
+                        FOLLOW = {$, ')'}
+term          nao       FIRST  = {NUM, ID, '('}
+                        FOLLOW = {$, '+', '-', ')'}
+factor        nao       FIRST  = {NUM, ID, '('}
+                        FOLLOW = {$, '+', '-', '*', '/', ')'}
+status 0

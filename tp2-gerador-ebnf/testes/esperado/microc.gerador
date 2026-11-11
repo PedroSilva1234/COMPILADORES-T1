@@ -1,0 +1,41 @@
+NAO TERMINAL          ANULAVEL  FIRST / FOLLOW
+programa              nao       FIRST  = {'int'}
+                                FOLLOW = {$}
+bloco                 nao       FIRST  = {'{'}
+                                FOLLOW = {$, '{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+declaracao            nao       FIRST  = {'int', 'char'}
+                                FOLLOW = {'int', '{', '}', ID, ';', 'char', 'if', 'for', 'return', 'print'}
+comando               nao       FIRST  = {'{', ID, ';', 'if', 'for', 'return', 'print'}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+tipo                  nao       FIRST  = {'int', 'char'}
+                                FOLLOW = {ID}
+comando_if            nao       FIRST  = {'if'}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+comando_for           nao       FIRST  = {'for'}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+atribuicao            nao       FIRST  = {ID}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+comando_return        nao       FIRST  = {'return'}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+comando_print         nao       FIRST  = {'print'}
+                                FOLLOW = {'{', '}', ID, ';', 'if', 'else', 'for', 'return', 'print'}
+expressao             nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';'}
+atribuicao_interna    nao       FIRST  = {ID}
+                                FOLLOW = {')', ';'}
+conteudo_print        nao       FIRST  = {'(', ID, INTEGERCONST, STRINGCONST, CHARCONST, '!'}
+                                FOLLOW = {')'}
+expressao_logica      nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';'}
+expressao_relacional  nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';', '&&', '||'}
+expressao_aritmetica  nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';', '&&', '||', '==', '!=', '<', '>', '<=', '>='}
+operador_relacional   nao       FIRST  = {'==', '!=', '<', '>', '<=', '>='}
+                                FOLLOW = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+termo                 nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';', '&&', '||', '==', '!=', '<', '>', '<=', '>=', '+', '-'}
+fator                 nao       FIRST  = {'(', ID, INTEGERCONST, CHARCONST, '!'}
+                                FOLLOW = {')', ']', ';', '&&', '||', '==', '!=', '<', '>', '<=', '>=', '+', '-', '*', '/', '%'}
+testes/gramaticas/microc.ebnf:19:57: aviso: conflito LL(1) em comando_if: FIRST e FOLLOW de [ ] se intersectam (resolvido de forma gulosa) em {'else'}
+status 0

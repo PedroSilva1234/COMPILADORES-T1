@@ -272,6 +272,8 @@ static void emit_erro(Emissor *em, const Bitset *esperados)
 
 static void gen_expr(Emissor *em, const Gramatica *g, const Expr *e)
 {
+    int i, usados;
+    const Expr *nula;
 
     switch (e->tipo) {
     case E_TERM:
@@ -280,6 +282,65 @@ static void gen_expr(Emissor *em, const Gramatica *g, const Expr *e)
     case E_NAOTERM:
         emit(em, "parse_%s();", g->nts[e->simbolo].nome);
         break;
+    
+    case E_SEQ: 
+        for(i=0; i<e->nfilhos; i++) {
+            gen_expr(em, g, e->filhos[i]);
+        }
+        break;
+    
+    case E_OPC:
+        emit_teste(em, "if (", g, &e->filhos[0]->first, ") {");
+        em->nivel++;
+        gen_expr(em, g, e->filhos[0]);
+        em->nivel--;
+        emit(em, "}");
+        break;
+
+    case E_REP: 
+            emit_teste(em, "while (", g, &e->filhos[0]->first, ") {");
+            em->nivel++;
+            gen_expr(em, g, e->filhos[0]);
+            em->nivel--;
+            emit(em, "}");
+            break;
+    case E_VAZIO:
+        break;
+    case E_ALT:
+        nula = NULL;
+        usados = 0;
+        for(i = 0; i < e->nfilhos; i++) {
+            if(e->filhos[i]->anulavel) {
+                nula = e->filhos[i];
+                continue;
+            }
+            emit_teste(em, usados==0 ? "if (" : "else if (", g, &e->filhos[i]->first, ") {");
+            usados++;
+            em->nivel++;
+            gen_expr(em, g, e->filhos[i]);
+            em->nivel--;
+            emit(em, "}");
+        }
+
+        if (usados == 0) {             /* so ha alternativa anulavel */
+            if (nula != NULL)
+                gen_expr(em, g, nula);
+            break;
+        }
+        if (nula != NULL && nula->tipo == E_VAZIO) {
+            emit(em, "}");             /* alternativa vazia: nao faz nada */
+        } else {
+            emit(em, "else {");
+            em->nivel++;
+            if (nula != NULL)
+                gen_expr(em, g, nula);
+            else
+                emit_erro(em, &e->first);
+            em->nivel--;
+            emit(em, "}");
+        }
+        break;
+
     /*
      * TODO(aluno): traduzir as demais construcoes (secao 4):
      *
@@ -299,9 +360,6 @@ static void gen_expr(Emissor *em, const Gramatica *g, const Expr *e)
      * no lugar do erro.
      */
     default:
-        emit(em, "/* TODO(aluno): construcao ainda nao traduzida */");
-        (void) emit_teste;
-        (void) emit_erro;
         break;
     }
 }

@@ -3,7 +3,7 @@
  *
  * Fornecido: conj_iniciar e conj_imprimir.
  *
- * TODO(aluno): conj_anulavel, conj_first e conj_follow. Os tres sao
+ * Implementado: conj_anulavel, conj_first e conj_follow. Os tres sao
  * calculados por iteracao ate ponto fixo: repita uma passada sobre todas
  * as regras enquanto algum conjunto (ou flag) mudar. bitset_unir devolve
  * 1 quando o conjunto de destino muda, o que ajuda a detectar o ponto fixo.
@@ -122,7 +122,7 @@ void conj_anulavel(Gramatica *g)
 
 }
 
-/* TODO(aluno): calcular e->first para cada no Expr e g->nts[i].first.
+/* Regras para calcular e->first para cada no Expr e g->nts[i].first.
  *   E_TERM t: {t}     E_NAOTERM B: FIRST(B)     E_VAZIO: {}
  *   E_SEQ a1..an: FIRST(a1) U FIRST(a2) ... ate o primeiro ai nao anulavel
  *   E_ALT, E_OPC, E_REP: uniao dos FIRST dos filhos
@@ -183,7 +183,7 @@ void conj_first(Gramatica *g)
     } while (mudou);
 }
 
-/* TODO(aluno): calcular e->follow (o que pode vir logo apos cada
+/* Regras para calcular e->follow (o que pode vir logo apos cada
  * construcao) e g->nts[i].follow. FOLLOW(inicial) contem $ (TERM_FIM).
  * Para cada regra A = alfa, faca follow(alfa) U= FOLLOW(A) e propague:
  *   E_SEQ a1..an:  follow(ai) U= FIRST(ai+1 ... an), mais follow(seq)
@@ -193,7 +193,7 @@ void conj_first(Gramatica *g)
  *   E_NAOTERM B:   FOLLOW(B) U= follow(no)
  * Repita ate nada mudar. */
 
- void expr_follow(Expr *e, Gramatica *g, int *mudou)
+static void expr_follow(Expr *e, Gramatica *g, int *mudou)
  {
     int i, j,resto_anulavel;
     Expr *f;

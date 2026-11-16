@@ -1,0 +1,35 @@
+(* Gramatica do Micro C (Apendice B do livro-texto) para o modo
+   --scanner microc. Ajustes em relacao ao apendice, para torna-la LL(1):
+     - atribuicao_interna e fator tinham alternativas iniciadas por ID
+       ("ID ..." e "ID [ ... ] ..."); o opcional [ "[" expressao "]" ]
+       substitui as duas (fatoracao a esquerda).
+   O "else pendente" em comando_if produz um AVISO de conflito LL(1) em
+   [ "else" comando ], resolvido de forma gulosa: o else fica com o if
+   mais proximo, como em C. *)
+TOKENS EXTERN "../../microc/tokens.h" ;
+
+RULES
+  programa             = "int" "main" "(" ")" bloco ;
+  bloco                = "{" { declaracao } { comando } "}" ;
+  declaracao           = tipo ID [ "[" INTEGERCONST "]" ] ";" ;
+  tipo                 = "int" | "char" ;
+
+  comando              = comando_if | comando_for | atribuicao | comando_return
+                       | comando_print | bloco | ";" ;
+  comando_if           = "if" "(" expressao ")" comando [ "else" comando ] ;
+  comando_for          = "for" "(" atribuicao_interna ";" expressao ";"
+                         atribuicao_interna ")" comando ;
+  comando_return       = "return" [ expressao ] ";" ;
+  comando_print        = "print" "(" conteudo_print ")" ";" ;
+  atribuicao           = atribuicao_interna ";" ;
+  atribuicao_interna   = ID [ "[" expressao "]" ] "=" expressao ;
+
+  conteudo_print       = STRINGCONST | expressao ;
+  expressao            = expressao_logica ;
+  expressao_logica     = expressao_relacional { ( "&&" | "||" ) expressao_relacional } ;
+  expressao_relacional = expressao_aritmetica [ operador_relacional expressao_aritmetica ] ;
+  operador_relacional  = "==" | "!=" | "<" | ">" | "<=" | ">=" ;
+  expressao_aritmetica = termo { ( "+" | "-" ) termo } ;
+  termo                = fator { ( "*" | "/" | "%" ) fator } ;
+  fator                = "(" expressao ")" | ID [ "[" expressao "]" ]
+                       | INTEGERCONST | CHARCONST | "!" fator ;

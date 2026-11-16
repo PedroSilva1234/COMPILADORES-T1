@@ -1,0 +1,8 @@
+NAO TERMINAL  ANULAVEL  FIRST / FOLLOW
+stmt          nao       FIRST  = {ID}
+                        FOLLOW = {$}
+expr          nao       FIRST  = {ID, NUM}
+                        FOLLOW = {';'}
+testes/gramaticas/conflito_ll1.ebnf:8:10: erro: conflito LL(1) em stmt: alternativas 1 e 2 comecam com {ID}
+testes/gramaticas/conflito_ll1.ebnf: a gramatica nao e LL(1); nenhum codigo foi gerado
+status 1

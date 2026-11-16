@@ -1,0 +1,10 @@
+NAO TERMINAL  ANULAVEL  FIRST / FOLLOW
+config        sim       FIRST  = {'['}
+                        FOLLOW = {$}
+secao         nao       FIRST  = {'['}
+                        FOLLOW = {$, '['}
+atribuicao    nao       FIRST  = {ID}
+                        FOLLOW = {$, ID, '['}
+valor         nao       FIRST  = {ID, NUM, '('}
+                        FOLLOW = {';', ',', ')'}
+status 0
